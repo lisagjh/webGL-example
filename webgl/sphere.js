@@ -143,10 +143,10 @@ const vertexShader = `
     float distortion = pnoise((normal + t), vec3(10.0) * noiseDensity) * noiseStrength;
     vec3 pos = position + (normal * distortion);
     
-    float frequency = 0.7;
-    float amplitude = 0.2;
+    float frequency = 10.0;
+    float amplitude = 0.1;
     float angle = sin(uv.y * frequency + t) * amplitude;
-    pos *= rotateY(angle * 10.);
+    pos *= rotateY(angle * 1.0);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     
