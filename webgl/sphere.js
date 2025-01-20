@@ -143,8 +143,8 @@ const vertexShader = `
     float distortion = pnoise((normal + t), vec3(10.0) * noiseDensity) * noiseStrength;
     vec3 pos = position + (normal * distortion);
     
-    float frequency = 1.2;
-    float amplitude = 1.0;
+    float frequency = 0.7;
+    float amplitude = 0.2;
     float angle = sin(uv.y * frequency + t) * amplitude;
     pos *= rotateY(angle * 10.);
 
@@ -164,7 +164,7 @@ const fragmentShader = `
   }
 
   void main() {
-    float intensity = 1.0;
+    float intensity = 10.0;
     float distort = vDistort * intensity;
 
     vec3 brightness = vec3(0.5);
@@ -183,15 +183,15 @@ const shaderMaterial = new THREE.ShaderMaterial({
   uniforms: {
     uTime: { value: 0.0 },
   },
-  wireframe: false,
+  wireframe: true,
 });
 
-const geometry = new THREE.SphereGeometry(1, 64, 64);
+const geometry = new THREE.SphereGeometry(1, 80, 80);
 const sphere = new THREE.Mesh(geometry, shaderMaterial);
 scene.add(sphere);
 
 function animate(time) {
-  shaderMaterial.uniforms.uTime.value = time * 0.001;
+  shaderMaterial.uniforms.uTime.value = time * 0.0005;
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
